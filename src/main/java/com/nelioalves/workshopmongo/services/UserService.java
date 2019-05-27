@@ -14,30 +14,30 @@ import java.util.Optional;
 public class UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository repository;
 
     public List<User> findAll(){
-        return userRepository.findAll();
+        return repository.findAll();
     }
 
     public User findById(String id){
-        Optional<User> user = userRepository.findById(id);
+        Optional<User> user = repository.findById(id);
         return user.orElseThrow( () -> new ObjectNotFoundException("Usuário não encontrado"));
     }
 
     public User insert(User user){
-        return userRepository.insert(user);
+        return repository.insert(user);
     }
 
     public void delete(String id){
         findById(id);
-        userRepository.deleteById(id);
+        repository.deleteById(id);
     }
 
     public User update(User user){
         User newUser = findById(user.getId());
         updateData(newUser, user);
-        return userRepository.save(newUser);
+        return repository.save(newUser);
     }
 
     public User fromDTO(UserDTO userDTO){
