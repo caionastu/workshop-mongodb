@@ -1,6 +1,7 @@
 package com.nelioalves.workshopmongo.resources;
 
 import com.nelioalves.workshopmongo.domains.User;
+import com.nelioalves.workshopmongo.dtos.UserDTO;
 import com.nelioalves.workshopmongo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import javax.xml.ws.Response;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -21,7 +23,8 @@ public class UserResource {
     private UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<User>> findAll(){
-        return ResponseEntity.ok().body(userService.findAll());
+    public ResponseEntity<List<UserDTO>> findAll(){
+        List<UserDTO> usersDTOs = userService.findAll().stream().map(user -> new UserDTO(user)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(usersDTOs);
     }
 }
