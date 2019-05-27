@@ -44,7 +44,7 @@ public class UserService {
         return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
     }
 
-    public void updateData(User newUser, User user){
+    private void updateData(User newUser, User user){
         newUser.setName(user.getName());
         user.setEmail(user.getEmail());
     }
